@@ -1,96 +1,47 @@
-#include <stdio.h>
-#include <conio.h>
-#include <string.h>
+#include<stdio.h>
+#include<string.h>
+#include<conio.h>
+void encrypt(int depth,char str[20][20],char a[20],char b[20])
+{       int i,j,k=0;
+for(i=0;i<strlen(a);i++)
+	{
+	 str[i%depth][i]=a[i];
 
-int n, key, key1 = 0, plength, k, j;
-char a[40];
-char ptext[50][50], dtext[50];
-int i = 0, col = 0, row = 0;
-int flag = 0;
+	}
+       for(i=0;i<depth;i++)
+       {
+		for(j=0;j<strlen(a);j++)
+		{
+		  if(str[i][j]!=NULL)
+		  {
+	       //	  printf("%c\t",str[i][j]);
+		 b[k]=str[i][j];
+		  k++;
+		  }
 
-int main()
-{
+		}
 
+       }
+       b[k]='\0';
+
+	puts(b);
+
+
+
+
+}
+void main()
+{      char a[20],b[20];
+	char str[20][20]={{'\0'}};
+	int depth;
 	clrscr();
-	printf("\n Enter the plaintext :");
+	printf("Enter the String:");
 	gets(a);
-	printf("\n Enter the depth : ");
-	scanf("%d", &key);
-	plength = strlen(a);
-	while (i < plength)
-	{
-		ptext[row][i] = a[i];
-
-		if (row == 0)
-		{
-			flag = 0;
-		}
-		else if (row == key - 1)
-		{
-			flag = 1;
-		}
-
-		if (flag == 0)
-		{
-			row++;
-		}
-		else
-		{
-			row--;
-		}
-		i++;
-	}
-	i = 0;
-	for (k = 0; k < key; k++)
-	{
-		for (j = 0; j < plength; j++)
-		{
-			if (ptext[k][j] != '\0')
-			{
-				dtext[i] = ptext[k][j];
-				i++;
-				printf("%c", ptext[k][j]);
-			}
-			else
-			{
-				printf(".");
-			}
-		}
-		printf("\n");
-	}
-	printf("\n The encrypted text is : ");
-	puts(dtext);
-
-	i = 0;
-	row = 0;
-	col = 0;
-
-	printf("\n The decrypted text is : ");
-
-	while (i < plength)
-	{
-		printf("%c", ptext[row][i]);
-
-		if (row == 0)
-		{
-			flag = 0;
-		}
-		else if (row == key - 1)
-		{
-			flag = 1;
-		}
-
-		if (flag == 0)
-		{
-			row++;
-		}
-		else
-		{
-			row--;
-		}
-		i++;
-	}
-
-	getch();
-	return 0;
+	printf("Enter the depth:");
+	scanf("%d",&depth);
+		   //encryption
+	 encrypt(depth,str,a,b);
+	 //decryption
+	 encrypt(depth,str,b,a);
+      getch();
 }
